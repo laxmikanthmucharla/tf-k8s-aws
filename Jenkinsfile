@@ -34,22 +34,6 @@ pipeline {
                 }
             }
         }
-		stage('Terraform Apply') {
-   steps {
-       dir('eks-cluster') {
-           script {
-               sh 'terraform init'
-               echo "Applying Terraform configuration..."
-               sh """
-                   terraform apply -auto-approve \
-                   -var="vpc_cidr_block=10.0.0.0/16" \
-                   -var='private_subnet_cidr_blocks=["10.0.3.0/24","10.0.4.0/24"]' \
-                   -var='public_subnet_cidr_blocks=["10.0.1.0/24","10.0.2.0/24"]'
-               """
-           }
-       }
-   }
-}
         stage("Deploy to EKS") {
             when {
                 expression { params.ACTION == 'apply' }
