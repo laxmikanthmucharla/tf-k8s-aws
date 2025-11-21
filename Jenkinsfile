@@ -34,7 +34,7 @@ pipeline {
                 }
             }
         }
-		stage('Terraform Action') {
+		stage('Terraform Apply') {
    steps {
        dir('eks-cluster') {
            script {
